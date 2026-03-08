@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>ANTIBULLAS | Semana Santa Sevilla 2026</title>
+    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ANTIBULLAS" />
+    <meta name="description" content="Tu guía de supervivencia para la Semana Santa Sevilla 2026. Bullas, horarios, clima y transporte." />
+    <link rel="manifest" href="manifest.json" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+    <header class="main-header" role="banner">
+        <div class="logo-area">
+            <h1>ANTIBULLAS</h1>
+            <p>GUÍA DE SUPERVIVENCIA · SEVILLA MMXXVI</p>
+        </div>
+        <div class="search-box" role="search" id="search-wrapper" style="display:none">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="global-search" placeholder="Busca calle, hermandad o día..." aria-label="Buscar">
+            <button id="search-clear" class="search-clear" style="display:none" aria-label="Limpiar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div id="day-filter" class="day-filter" style="display:none">
+            <button class="day-btn active" data-day="TODOS">TODOS</button>
+            <button class="day-btn" data-day="DOMINGO DE RAMOS">D. RAMOS</button>
+            <button class="day-btn" data-day="LUNES SANTO">LUNES</button>
+            <button class="day-btn" data-day="MARTES SANTO">MARTES</button>
+            <button class="day-btn" data-day="MIÉRCOLES SANTO">MIÉRCOLES</button>
+            <button class="day-btn" data-day="JUEVES SANTO">JUEVES</button>
+            <button class="day-btn" data-day="LA MADRUGÁ">MADRUGÁ</button>
+            <button class="day-btn" data-day="VIERNES SANTO">VIERNES</button>
+            <button class="day-btn" data-day="SÁBADO SANTO">SÁBADO</button>
+            <button class="day-btn" data-day="DOMINGO RESURRECCIÓN">RESURRECC.</button>
+        </div>
+    </header>
+
+    <main id="app-content" role="main" aria-live="polite"></main>
+
+    <div id="map-modal" class="map-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="map-shell">
+            <button id="map-close" class="map-close" aria-label="Cerrar mapa">&times;</button>
+            <div id="map" style="height:100%;width:100%"></div>
+        </div>
+    </div>
+   <div id="a2hs-overlay" class="a2hs-overlay" aria-hidden="true"></div>
+    <div id="a2hs-popup" class="a2hs-popup" aria-hidden="true">
+        <div class="a2hs-content">
+            <button id="a2hs-close" class="a2hs-close" aria-label="Cerrar">&times;</button>
+            <div class="a2hs-icon">
+                <img src="https://placehold.co/192x192/0a0a0b/D4AF37?text=AB&font=Georgia" alt="Antibullas Icon">
+            </div>
+            <div class="a2hs-text">
+                <h3>Instala ANTIBULLAS</h3>
+                <p id="a2hs-desc">Añade la app a tu inicio para acceder rápido, sin conexión y sin distracciones.</p>
+            </div>
+            <button id="a2hs-btn" class="a2hs-btn">Instalar</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav" role="navigation" aria-label="Navegación principal">
+        <button id="btn-hoy"     class="nav-item" onclick="switchView('hoy',this)">
+            <i class="fa-solid fa-calendar-day"></i><span>HOY</span>
+        </button>
+        <button id="btn-bullas"  class="nav-item active" onclick="switchView('bullas',this)">
+            <i class="fa-solid fa-shield-halved"></i><span>BULLAS</span>
+        </button>
+        <button id="btn-prog"    class="nav-item" onclick="switchView('programa',this)">
+            <i class="fa-solid fa-clock"></i><span>PROGRAMA</span>
+        </button>
+        <button id="btn-miplan" class="nav-item" onclick="switchView('miplan',this)">
+            <i class="fa-solid fa-route"></i><span>MI PLAN</span>
+        </button>
+        <button id="btn-guia"    class="nav-item" onclick="switchView('guia',this)">
+            <i class="fa-solid fa-compass"></i><span>GUÍA</span>
+        </button>
+    </nav>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js" defer></script>
+</body>
+<footer class="site-footer">
+    <p>ANTIBULLAS · Semana Santa Sevilla 2026</p>
+    <p class="author">Creado por <strong>Antonio Tirado</strong></p>
+</footer>
+</html>
